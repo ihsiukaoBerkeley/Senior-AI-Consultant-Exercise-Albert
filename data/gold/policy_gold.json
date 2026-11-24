@@ -1,0 +1,782 @@
+{
+  "version": 1,
+  "compiled_at": "2026-11-23T00:00:00+00:00",
+  "source": "gold",
+  "kb_hashes": {
+    "KB-001": "5f93e08c677de1ea08c07e5a6e2edbf957e192840e8084c141375f6e8dbb518c",
+    "KB-002": "f5c3d72bd08480d2cdb47fddcd6f7962e7a904d79568c230d7b08db94a11d9af",
+    "KB-003": "38778caf5e358c426ec25bc10319741d3487261789e40621dbd4f7e93f5ec55f",
+    "KB-004": "ac3380ed408084631cabf1ede6ffa2c63fc912ec2c6a81ee443ac2a237772c85",
+    "KB-005": "66f5dd05431cb97b83968baf50e1fc39a8e6df61aca3e16735425513833c5928",
+    "KB-006": "f9994c3d3baf741ce96ff2eca4b88a3f8148c382893f4203aafe08154de3324c",
+    "KB-007": "c3b795fd0ae10856280d3785ffeae506b3f84a58cc3f1546e2b06f074cb3ade5",
+    "KB-008": "4ff0c6af2667e2cf39571bea7801505433619461d2f836f3e8b05612d1f45af0",
+    "KB-009": "6aae69ba39b219e259c94cf8c741487730731bba46d10c40e566c94b2e6d1f23",
+    "KB-010": "9e5baa9b2bc14fcfcda2810a940c7b7cb5237a48bea5377746fe74b24a3952e5",
+    "KB-011": "7cabe8ef02a567a614758b8e4664ded557aaa23d8259141bc42fc8169ed055a7",
+    "KB-012": "e8b4094dd90282f14eb6b43450b70a34330c27646ea8cbc4d0d70e456f7ae526",
+    "KB-013": "52fe138fbc5c252b7912e9866f9a2fbb443fdac73abba4970c1e3ea52b74368f"
+  },
+  "inactive_articles": [
+    "KB-011"
+  ],
+  "rules": [
+    {
+      "rule_id": "KB-001:new-access",
+      "article_id": "KB-001",
+      "situation": "A user asks for new access to an application or role that is not privileged, administrative, finance or production",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Access",
+      "owner_team": null,
+      "required_fields": [
+        "application",
+        "requested role",
+        "business reason",
+        "manager approval"
+      ],
+      "needs_approval": true,
+      "approver": "manager",
+      "route_without_waiting": false,
+      "priority_hint": "medium",
+      "must_never": [
+        "grant access without the required approval"
+      ],
+      "user_guidance": [
+        "Sign out and back in after approved access is granted"
+      ],
+      "quotes": [
+        "New access requires the application, requested role, business reason, and manager approval.",
+        "The service desk may fulfill pre-approved standard roles.",
+        "Create an `Access` ticket when approval or an owner decision is required.",
+        "a new access request is normally medium priority."
+      ]
+    },
+    {
+      "rule_id": "KB-001:privileged-access",
+      "article_id": "KB-001",
+      "situation": "A user asks for privileged, administrative, finance or production access",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Access",
+      "owner_team": null,
+      "required_fields": [
+        "application",
+        "requested role",
+        "business reason",
+        "manager approval"
+      ],
+      "needs_approval": true,
+      "approver": "application owner",
+      "route_without_waiting": false,
+      "priority_hint": "medium",
+      "must_never": [
+        "grant privileged, administrative, finance or production access automatically"
+      ],
+      "user_guidance": [
+        "Sign out and back in after approved access is granted"
+      ],
+      "quotes": [
+        "New access requires the application, requested role, business reason, and manager approval.",
+        "Privileged, administrative, finance, and production access must be routed to the application owner and must not be granted automatically.",
+        "Create an `Access` ticket when approval or an owner decision is required.",
+        "a new access request is normally medium priority."
+      ]
+    },
+    {
+      "rule_id": "KB-001:existing-access-failure",
+      "article_id": "KB-001",
+      "situation": "Access the user already had stops working (signs in but the application denies access)",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Access",
+      "owner_team": null,
+      "required_fields": [
+        "application",
+        "requested role"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [
+        "Confirm you can sign in to the company identity portal",
+        "Sign out and back in"
+      ],
+      "quotes": [
+        "Confirm the user can sign in to the company identity portal, identify the application and requested role, check existing group membership, and ask the user to sign out and back in after approved access is granted.",
+        "Use high priority only when an existing access failure blocks a documented business-critical activity"
+      ]
+    },
+    {
+      "rule_id": "KB-002:password-reset",
+      "article_id": "KB-002",
+      "situation": "The user forgot their password or the self-service reset fails",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Identity",
+      "owner_team": null,
+      "required_fields": [
+        "error",
+        "affected username"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "ask for or store a password",
+        "include authentication secrets in the ticket"
+      ],
+      "user_guidance": [
+        "Use the self-service password reset portal"
+      ],
+      "quotes": [
+        "Direct the user to the self-service password reset portal.",
+        "Service desk staff and automated agents must never ask for or store a password.",
+        "If self-service reset fails, create an `Identity` ticket with the error and affected username, but do not include authentication secrets."
+      ]
+    },
+    {
+      "rule_id": "KB-002:mfa-device-change",
+      "article_id": "KB-002",
+      "situation": "The user lost or replaced the device used for MFA and needs methods reset or a new device enrolled",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Identity",
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": true,
+      "approver": "human service desk agent (identity verification)",
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "request, repeat, log or validate an MFA code",
+        "reset MFA methods before a human verifies identity"
+      ],
+      "user_guidance": [
+        "Enroll a company-approved authenticator through the identity portal"
+      ],
+      "quotes": [
+        "Users enroll a company-approved authenticator through the identity portal.",
+        "Never request, repeat, log, or validate an MFA code in chat or in a ticket.",
+        "Lost or replaced devices require identity verification by a human service desk agent before MFA methods are reset."
+      ]
+    },
+    {
+      "rule_id": "KB-002:unexpected-mfa",
+      "article_id": "KB-002",
+      "situation": "Repeated unexpected MFA prompts, or a reset request the user did not start",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Security",
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "request, repeat, log or validate an MFA code"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Never request, repeat, log, or validate an MFA code in chat or in a ticket.",
+        "Repeated unexpected MFA prompts or a reset request the user did not initiate must be treated as a potential security incident and routed to Security."
+      ]
+    },
+    {
+      "rule_id": "KB-003:remote-access-failure",
+      "article_id": "KB-003",
+      "situation": "The approved VPN, remote desktop or file-transfer client fails or stays unavailable",
+      "scope": "situation",
+      "triggers": [],
+      "category": "RemoteWork",
+      "owner_team": null,
+      "required_fields": [
+        "client",
+        "operating system",
+        "error",
+        "whether VPN, remote desktop or file transfer is affected"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "advise disabling endpoint protection, firewall controls, device compliance or certificate validation"
+      ],
+      "user_guidance": [
+        "For expired-token or authentication errors: disconnect, sign out of the client, sign in again and reconnect",
+        "For remote desktop: check the target computer is powered on and remote access is assigned"
+      ],
+      "quotes": [
+        "Confirm the device is company managed, has internet access, and reports as compliant.",
+        "Record the client, operating system, error, and whether the problem affects VPN, remote desktop, or file transfer.",
+        "Do not advise users to disable endpoint protection, firewall controls, device compliance, or certificate validation.",
+        "Create a `RemoteWork` ticket when the approved client remains unavailable."
+      ]
+    },
+    {
+      "rule_id": "KB-004:drive-connectivity",
+      "article_id": "KB-004",
+      "situation": "A network drive or shared folder can't be reached or the mapping fails",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Network",
+      "owner_team": null,
+      "required_fields": [
+        "share path",
+        "exact error",
+        "whether other folders on the same share are accessible"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "copy confidential file contents into a ticket"
+      ],
+      "user_guidance": [
+        "Confirm you are on the office network or the approved VPN",
+        "Reconnect using the published share path and refresh your sign-in"
+      ],
+      "quotes": [
+        "Confirm the user is connected to the office network or approved VPN.",
+        "Capture the share path, exact error, and whether other folders on the same share are accessible.",
+        "Do not copy confidential file contents into a ticket.",
+        "Create a `Network` ticket for connectivity or mapping failures."
+      ]
+    },
+    {
+      "rule_id": "KB-004:single-folder-denied",
+      "article_id": "KB-004",
+      "situation": "Only one folder on a share is denied, or the user asks for folder-level permissions",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Access",
+      "owner_team": null,
+      "required_fields": [
+        "share path",
+        "exact error",
+        "whether other folders on the same share are accessible"
+      ],
+      "needs_approval": true,
+      "approver": "data owner",
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "change permissions without data-owner approval",
+        "remap the whole drive",
+        "copy confidential file contents into a ticket"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Capture the share path, exact error, and whether other folders on the same share are accessible.",
+        "If only one folder is denied, treat it as an access issue rather than remapping the whole drive.",
+        "Do not change permissions without data-owner approval.",
+        "Create an `Access` ticket for folder-level permission requests and identify the data owner when known."
+      ]
+    },
+    {
+      "rule_id": "KB-005:display",
+      "article_id": "KB-005",
+      "situation": "Monitors or displays are not detected",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Hardware",
+      "owner_team": null,
+      "required_fields": [
+        "dock model",
+        "monitor model"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [
+        "Reconnect the dock and use the detect-displays function"
+      ],
+      "quotes": [
+        "For displays, confirm power, cable connection, docking-station connection, and operating-system display detection.",
+        "Record dock and monitor models if the issue remains."
+      ]
+    },
+    {
+      "rule_id": "KB-005:printer-single-user",
+      "article_id": "KB-005",
+      "situation": "One user can't print or their printer connection drops",
+      "scope": "situation",
+      "triggers": [],
+      "category": null,
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "instruct users to assign an IP address"
+      ],
+      "user_guidance": [
+        "Check you are on the correct network, the printer is online and the queue isn't paused",
+        "Clear only your own failed jobs, then reconnect the published printer"
+      ],
+      "quotes": [
+        "For printers, confirm the user is on the correct network, the printer is online, and the queue is not paused.",
+        "Clear only the user's failed jobs before reconnecting the published printer.",
+        "Do not instruct users to assign an IP."
+      ]
+    },
+    {
+      "rule_id": "KB-005:printer-multi-user",
+      "article_id": "KB-005",
+      "situation": "Multiple users lose connectivity to the same printer",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Network",
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "instruct users to assign an IP address"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Do not instruct users to assign an IP.",
+        "a `Network` ticket when multiple users lose connectivity to the same printer."
+      ]
+    },
+    {
+      "rule_id": "KB-005:physical-failure",
+      "article_id": "KB-005",
+      "situation": "A workplace device has a physical failure (for example a dock with no power)",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Hardware",
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [],
+      "quotes": [
+        "Create a `Hardware` ticket for physical failures"
+      ]
+    },
+    {
+      "rule_id": "KB-005:battery-hazard",
+      "article_id": "KB-005",
+      "situation": "A laptop battery is swollen or overheating",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Hardware",
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [
+        "Stop using and charging the device immediately"
+      ],
+      "quotes": [
+        "A swollen or overheating battery requires the user to stop using and charging the device immediately."
+      ]
+    },
+    {
+      "rule_id": "KB-006:approved-app-missing",
+      "article_id": "KB-006",
+      "situation": "An approved application is missing from the software portal",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Software",
+      "owner_team": null,
+      "required_fields": [
+        "application name",
+        "device ID",
+        "displayed error"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "state that software is approved or licensed unless the system of record confirms it"
+      ],
+      "user_guidance": [
+        "Refresh the software portal once"
+      ],
+      "quotes": [
+        "Approved software must be installed from the company software portal.",
+        "If an approved application is missing, refresh the portal once and capture the application name, device ID, and displayed error."
+      ]
+    },
+    {
+      "rule_id": "KB-006:non-standard-software",
+      "article_id": "KB-006",
+      "situation": "The user asks for software that is not standard or not yet approved",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Software",
+      "owner_team": null,
+      "required_fields": [
+        "product",
+        "business reason",
+        "manager approval",
+        "requested duration"
+      ],
+      "needs_approval": true,
+      "approver": "manager",
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "state that the software is approved or licensed unless the system of record confirms it",
+        "install software outside the company software portal"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "For non-standard software, create a `Software` request containing the product, business reason, manager approval, and requested duration.",
+        "An automated agent must not state that software is approved or licensed unless the system of record confirms it."
+      ]
+    },
+    {
+      "rule_id": "KB-006:license-activation",
+      "article_id": "KB-006",
+      "situation": "License activation fails",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Software",
+      "owner_team": null,
+      "required_fields": [
+        "product",
+        "license-server name",
+        "error code",
+        "number of affected users"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "place license keys in chat, logs or tickets"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "For activation failures, capture the product, license-server name, error code, and number of affected users.",
+        "Widespread failures may be an infrastructure incident.",
+        "Never place license keys in chat, logs, or tickets."
+      ]
+    },
+    {
+      "rule_id": "KB-007:isolated-issue",
+      "article_id": "KB-007",
+      "situation": "One user has a problem with email, chat, meetings or another collaboration tool",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Communication",
+      "owner_team": null,
+      "required_fields": [
+        "service",
+        "affected user or group",
+        "start time",
+        "whether sending, receiving, access or device operation is affected"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [
+        "Check the published service-status page"
+      ],
+      "quotes": [
+        "Identify the service, affected user or group, start time, and whether the issue affects sending, receiving, access, or device operation.",
+        "Route isolated access issues to `Communication`."
+      ]
+    },
+    {
+      "rule_id": "KB-007:multi-user-outage",
+      "article_id": "KB-007",
+      "situation": "Multiple users can't use email, chat, meetings or another collaboration tool",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Communication",
+      "owner_team": null,
+      "required_fields": [
+        "service",
+        "affected user or group",
+        "start time",
+        "whether sending, receiving, access or device operation is affected"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": "high",
+      "must_never": [
+        "create a duplicate incident ticket without checking service status"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Identify the service, affected user or group, start time, and whether the issue affects sending, receiving, access, or device operation.",
+        "Check the published service-status page before creating duplicate incident tickets.",
+        "If multiple users are affected and no active incident exists, create a high-priority Collaboration incident."
+      ]
+    },
+    {
+      "rule_id": "KB-007:resource-access",
+      "article_id": "KB-007",
+      "situation": "The user needs access to a channel, recording, distribution list or meeting room",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Communication",
+      "owner_team": null,
+      "required_fields": [
+        "resource name",
+        "owner approval"
+      ],
+      "needs_approval": true,
+      "approver": "group owner",
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [],
+      "quotes": [
+        "Channel, recording, distribution-list, and room access may be controlled by a group owner.",
+        "New access requires the resource name and owner approval."
+      ]
+    },
+    {
+      "rule_id": "KB-007:intermittent-mail",
+      "article_id": "KB-007",
+      "situation": "Mail delivery is intermittent",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Communication",
+      "owner_team": null,
+      "required_fields": [
+        "sender",
+        "recipient",
+        "timestamp",
+        "message ID"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "copy confidential message bodies unless required"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "For intermittent mail delivery, record sender, recipient, timestamp, and message ID; do not copy confidential message bodies unless required."
+      ]
+    },
+    {
+      "rule_id": "KB-008:suspicious-activity",
+      "article_id": "KB-008",
+      "situation": "Suspected phishing, unexpected MFA prompts, malware alerts, lost devices or possible account compromise",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Security",
+      "owner_team": "Security Operations",
+      "required_fields": [
+        "affected device or account identifier",
+        "time observed",
+        "actions already taken"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": "high",
+      "must_never": [
+        "request passwords, MFA codes, private keys, recovery codes or full payment-card data",
+        "tell the user to disable endpoint protection or delete evidence",
+        "promise that an account or device is safe"
+      ],
+      "user_guidance": [
+        "Stop interacting with the suspicious content",
+        "Contact the Security Hotline"
+      ],
+      "quotes": [
+        "For suspected phishing, unexpected MFA prompts, malware alerts, lost devices, or possible account compromise, instruct the user to stop interacting with the suspicious content and contact the Security Hotline.",
+        "Create a high-priority `Security` ticket with a concise description, affected device or account identifier, time observed, and actions already taken.",
+        "Do not request passwords, MFA codes, private keys, recovery codes, or full payment-card data.",
+        "Do not tell the user to disable endpoint protection or delete evidence.",
+        "Do not promise that an account or device is safe.",
+        "Security Operations determines containment, evidence collection, credential reset, device isolation, and closure."
+      ]
+    },
+    {
+      "rule_id": "KB-009:restore-request",
+      "article_id": "KB-009",
+      "situation": "The user asks to restore deleted or damaged data",
+      "scope": "situation",
+      "triggers": [],
+      "category": "DataProtection",
+      "owner_team": null,
+      "required_fields": [
+        "system",
+        "backup policy",
+        "affected data",
+        "approximate last-known-good time",
+        "business impact",
+        "restore scope",
+        "target location",
+        "requested restore point",
+        "data owner"
+      ],
+      "needs_approval": true,
+      "approver": "data owner",
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "overwrite current data when an alternate-location restore is possible",
+        "claim a restore succeeded before the restore system reports completion and the requester or data owner verifies it"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Identify the system, backup policy, affected data, approximate last-known-good time, and business impact.",
+        "Create a `DataProtection` ticket with restore scope, target location, requested restore point, data owner, and approval when required.",
+        "Restore into an alternate location when possible to avoid overwriting current data.",
+        "Do not claim a restore succeeded until the restore system reports completion and the requester or data owner verifies the result."
+      ]
+    },
+    {
+      "rule_id": "KB-009:backup-verification",
+      "article_id": "KB-009",
+      "situation": "The user wants to confirm data is backed up, or a backup job succeeded but a file seems missing",
+      "scope": "situation",
+      "triggers": [],
+      "category": "DataProtection",
+      "owner_team": null,
+      "required_fields": [
+        "system",
+        "backup policy",
+        "affected data"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "treat a successful backup job as proof that every file can be restored"
+      ],
+      "user_guidance": [],
+      "quotes": [
+        "Identify the system, backup policy, affected data, approximate last-known-good time, and business impact.",
+        "A successful job status confirms that a backup ran; it does not by itself prove every file can be restored."
+      ]
+    },
+    {
+      "rule_id": "KB-010:performance",
+      "article_id": "KB-010",
+      "situation": "A virtual desktop (VDI) or enterprise application is slow, freezes or performs badly",
+      "scope": "situation",
+      "triggers": [],
+      "category": "Performance",
+      "owner_team": null,
+      "required_fields": [
+        "service",
+        "user impact",
+        "start time",
+        "frequency",
+        "device and network",
+        "region",
+        "error",
+        "whether other users are affected",
+        "session or pool identifier (VDI)"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": null,
+      "must_never": [
+        "recommend repeated restarts, registry changes, disabling security software or increasing resources without evidence"
+      ],
+      "user_guidance": [
+        "Save your work and reconnect once",
+        "Compare from another approved network if practical"
+      ],
+      "quotes": [
+        "Record the service, user impact, start time, frequency, device and network, region, error, and whether other users are affected.",
+        "For VDI, capture the session or pool identifier.",
+        "Check service status before opening an incident.",
+        "Ask the user to save work and reconnect once.",
+        "Do not recommend repeated restarts, registry changes, disabling security software, or increasing resources without evidence.",
+        "Create a `Performance` ticket for an isolated reproducible problem."
+      ]
+    },
+    {
+      "rule_id": "KB-012:shared-service-incident",
+      "article_id": "KB-012",
+      "situation": "Any issue affecting several users or a shared service",
+      "scope": "cross_cutting",
+      "triggers": [
+        "multi_user"
+      ],
+      "category": null,
+      "owner_team": null,
+      "required_fields": [
+        "service",
+        "symptom",
+        "location",
+        "start time"
+      ],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": false,
+      "priority_hint": "high",
+      "must_never": [
+        "create a duplicate incident when an active incident matches",
+        "mark an incident resolved because one user recovers"
+      ],
+      "user_guidance": [
+        "Give the user the matching incident's public status"
+      ],
+      "quotes": [
+        "Before creating an incident for a shared-service problem, check the current service-status feed and search open tickets for the same service, symptom, location, and time window.",
+        "If an active incident already matches, link the request to that incident and provide its public status; do not create a duplicate incident.",
+        "If there is no match and multiple users are affected, create a high-priority incident with the affected service, scope, start time, and observed symptoms.",
+        "Do not mark an incident resolved because one user recovers."
+      ]
+    },
+    {
+      "rule_id": "KB-013:route-without-waiting",
+      "article_id": "KB-013",
+      "situation": "Any security case or physical safety hazard",
+      "scope": "cross_cutting",
+      "triggers": [
+        "security",
+        "safety"
+      ],
+      "category": null,
+      "owner_team": null,
+      "required_fields": [],
+      "needs_approval": false,
+      "approver": null,
+      "route_without_waiting": true,
+      "priority_hint": null,
+      "must_never": [],
+      "user_guidance": [
+        "Give the immediate steps from the relevant article now",
+        "Ask for missing details in a follow-up message"
+      ],
+      "quotes": [
+        "Security and safety cases must not wait for missing details.",
+        "Create the ticket at once with the information available, give the user the immediate steps from the relevant article, and flag the ticket for immediate staff review.",
+        "Ask for any missing details in a follow-up message.",
+        "Security cases include suspected phishing, unexpected MFA prompts, malware alerts, lost or stolen devices and possible account compromise (KB-002, KB-008).",
+        "Safety cases include a swollen or overheating battery (KB-005)."
+      ]
+    }
+  ]
+}

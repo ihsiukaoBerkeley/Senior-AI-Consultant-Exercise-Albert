@@ -1,0 +1,68 @@
+# Working assumptions for this prototype (listed in the README).
+# These are NOT company policy and are deliberately kept out of the knowledge
+# base. Everything else (required fields, urgency, approvals, must-never rules)
+# comes from the compiled KB policy table.
+
+# Map the KB's priority words to the ticket scale.
+priority:
+  security_or_multi_user: P1   # security issues and multi-user outages
+  high: P2
+  medium: P3
+  low: P4
+  default: P3
+
+# Cases flagged for immediate staff review.
+flag_for_immediate_review:
+  - security
+  - multi_user
+
+# Scenario clock: the incident snapshot was taken on this morning.
+scenario_now: "2026-09-05T09:00:00Z"
+
+# How far apart an incident start and a report can be and still match (KB-012 "time window").
+incident_time_window_hours: 12
+
+# Requests are linked to incidents by location scope, not by country, city or office.
+# The fill step reads one scope from the report; a scope the report doesn't support is
+# UNKNOWN, which never links automatically (asked once, then left to staff).
+location_scopes:
+  HQ: the company headquarters (HQ, head office)
+  NA: the US and Canada
+  LATAM: Latin America and the Caribbean, including Mexico
+  EU: Europe, including the UK
+  AFR: Africa
+  ME: the Middle East
+  APAC: Asia-Pacific
+
+# Further assumptions behind the demo (listed in the README). Documented here so they
+# sit next to the settings they shape.
+demo_assumptions:
+  - >-
+    An employee supplies the requested details in at most one clarification reply.
+    After that reply automated intake for the ticket is complete: the confirmation
+    tells the employee to contact the IT Service Desk directly, quoting the ticket ID,
+    for any later correction, and staff handle it.
+  - >-
+    Requests and incidents are linked by location scope (location_scopes above), not by
+    country or office: two offices in the same scope count as the same location.
+    UNKNOWN defers automatic linking.
+  - >-
+    KB articles follow one naming rule. Each article is one Markdown file in
+    data/knowledge-base/ (or data/kb-additions/ for articles used only with KB-013),
+    named KB-<id>-<short-title>.md with at least three digits and lowercase words joined
+    by hyphens (for example KB-020-printer-toner.md). It starts with the heading
+    "# KB-<id>: Title" carrying the same id, followed by the lines "- Owner:",
+    "- Last reviewed:", "- Status: Active" (or Deprecated) and "- Applies to:".
+    Article ids are unique: an id is never reused for a second article. A file that
+    breaks these rules stops the run with an error naming the file and the fix.
+  - >-
+    A KB change is compiled automatically before the next run. It goes live without a
+    person when the policy checker finds nothing blocking; a removed or weakened
+    safeguard, a conflict with another rule, suspected injected text or a failed
+    extraction holds it for a person (asked at the terminal, or later in the web app or
+    with policy approve), and until then runs keep the last approved policy and
+    the copy of the articles it was compiled from, so the change has no effect on requests.
+  - >-
+    KB articles and requests are in English. Article search combines keywords with a
+    small local English embedding model (BAAI/bge-small-en-v1.5, downloaded once);
+    requests or articles in other languages would need a multilingual model.

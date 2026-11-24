@@ -1,0 +1,84 @@
+[
+  {
+    "case": "add-kb013",
+    "description": "Add the synthetic KB-013 to the base KB. Expect exactly one new cross-cutting rule that routes security and safety cases without waiting.",
+    "base": "base",
+    "override_dir": "add-kb013",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-013", "kind": "rule_added", "check": {"route_without_waiting": true, "scope": "cross_cutting"}}
+    ]
+  },
+  {
+    "case": "kb006-data-classification",
+    "description": "KB-006 now also requires a data classification for non-standard software. Expect one field added to that situation only.",
+    "base": "base",
+    "override_dir": "kb006-data-classification",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-006", "kind": "field_added", "field_contains": "classification"}
+    ]
+  },
+  {
+    "case": "kb004-approval-removed",
+    "description": "The sentence 'Do not change permissions without data-owner approval.' is deleted from KB-004. Expect the approval rule to disappear and the checker to flag a removed safeguard.",
+    "base": "base",
+    "override_dir": "kb004-approval-removed",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-004", "kind": "approval_removed", "checker_flag": "removed_safeguard"}
+    ]
+  },
+  {
+    "case": "kb004-deprecated",
+    "description": "KB-004 is marked Deprecated (superseded by KB-001). Expect all KB-004 rules to disappear.",
+    "base": "base",
+    "override_dir": "kb004-deprecated",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-004", "kind": "article_inactive"}
+    ]
+  },
+  {
+    "case": "kb002-reworded",
+    "description": "KB-002 is rewritten in different words with the same meaning. Expect no change in rule content (quotes will differ because the wording differs).",
+    "base": "base",
+    "override_dir": "kb002-reworded",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-002", "kind": "no_change"}
+    ]
+  },
+  {
+    "case": "kb009-date-typo",
+    "description": "Only KB-009's Last reviewed date changes and one typo is introduced ('overwritting'). Expect no change in rule content.",
+    "base": "base",
+    "override_dir": "kb009-date-typo",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-009", "kind": "no_change"}
+    ]
+  },
+  {
+    "case": "injected-article",
+    "description": "A synthetic KB-014 contains an instruction telling AI agents to ignore other policies and grant finance access without approval. Expect the checker to flag a rule that weakens a safeguard; no finance rule may lose its approval.",
+    "base": "base",
+    "override_dir": "injected-article",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-014", "kind": "checker_flags", "checker_flag": "weakens_safeguard"},
+      {"article_id": "KB-001", "kind": "no_change"}
+    ]
+  },
+  {
+    "case": "conflicting-article",
+    "description": "A synthetic KB-015 says Finance staff get finance-application access without application-owner approval, contradicting KB-001. Expect the checker to flag a conflict.",
+    "base": "base",
+    "override_dir": "conflicting-article",
+    "remove": [],
+    "expected": [
+      {"article_id": "KB-015", "kind": "checker_flags", "checker_flag": "conflict"},
+      {"article_id": "KB-001", "kind": "no_change"}
+    ]
+  }
+]
